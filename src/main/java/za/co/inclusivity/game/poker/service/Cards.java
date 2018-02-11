@@ -1,8 +1,9 @@
 package za.co.inclusivity.game.poker.service;
 
 import za.co.inclusivity.game.poker.model.Card;
+import za.co.inclusivity.game.poker.model.Face;
 
-import java.util.Set;
+import java.util.*;
 
 public class Cards {
 
@@ -11,4 +12,25 @@ public class Cards {
     public Cards(Set<Card> deck) {
         this.deck = deck;
     }
+
+    public LinkedHashSet<Card> shuffle(Set<Card> set) {
+        List<Card> list = new ArrayList<>(set);
+        Collections.shuffle(list);
+        LinkedHashSet<Card> shuffledSet = new LinkedHashSet<>();
+        shuffledSet.addAll(list);
+        return shuffledSet;
+    }
+
+    public void dealCard(){
+        //TODO
+    }
+
+    public boolean hasCard(Face face) {
+        boolean hasCard = false;
+        for(Card card : deck){
+            hasCard = card.getFace().equals(face);
+        }
+        return hasCard;
+    }
+
 }
