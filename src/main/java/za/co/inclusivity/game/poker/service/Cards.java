@@ -2,6 +2,8 @@ package za.co.inclusivity.game.poker.service;
 
 import za.co.inclusivity.game.poker.model.Card;
 import za.co.inclusivity.game.poker.model.Face;
+import za.co.inclusivity.game.poker.model.PokerHand;
+import za.co.inclusivity.game.poker.rule.RoyalFlush;
 
 import java.util.*;
 import java.util.stream.Collectors;
