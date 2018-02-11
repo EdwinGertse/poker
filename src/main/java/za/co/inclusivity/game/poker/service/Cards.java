@@ -4,6 +4,7 @@ import za.co.inclusivity.game.poker.model.Card;
 import za.co.inclusivity.game.poker.model.Face;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class Cards {
 
@@ -31,6 +32,10 @@ public class Cards {
             hasCard = card.getFace().equals(face);
         }
         return hasCard;
+    }
+
+    public boolean isAllTheSameSuit() {
+        return deck.stream().collect(Collectors.groupingBy(Card::getSuit)).size() == 1;
     }
 
 }
