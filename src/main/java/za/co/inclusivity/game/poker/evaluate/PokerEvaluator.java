@@ -14,20 +14,37 @@ import java.util.Set;
 
 public class PokerEvaluator {
 
+    public static final String NO_PAIR = "No Pair";
     public Set<Card> deck = new HashSet<>();
 
-    public PokerHand evaluateHandDealt(String hand) {
+    public String evaluateHandDealt(String hand) {
         //Hand: 'AS, 10C, 10H, 3D, 3S'
         //ace of spades, 10 of clubs, 10 of hearts, 3 of diamonds, 3 of spades
         String[] cards = hand.split(",");
         if(cards.length != 5) return null;
 
         List<String> listOfCards = Arrays.asList(cards);
-        for(String c : listOfCards) deck.add(toCard(c));
+        for(String c : listOfCards) {
+            Card card = toCard(c);
+            deck.add(card);
+        }
 
-        boolean matches = new RoyalFlush().matches(new Cards(deck));
+        return evaluate( new Cards(deck));
+    }
 
-        return matches ? PokerHand.ROYAL_FLUSH : PokerHand.HIGH_RANK;
+    public String evaluate(Cards deck) {
+        String hand = NO_PAIR;
+        for(PokerHand pokerHand : PokerHand.values()) {
+            switch (pokerHand) {
+                case ROYAL_FLUSH:
+                    if(pokerHand.satisfy(deck)) { hand = pokerHand.getDescription(); }
+                    break;
+                case STRAIGHT_FLUSH:
+                    if(pokerHand.satisfy(deck)) { hand = pokerHand.getDescription(); }
+                    break;
+            }
+        }
+        return hand;
     }
 
     public Card toCard(String dealtCard) {
@@ -56,18 +73,21 @@ public class PokerEvaluator {
     }
 
     public Suit getSuit(String card) {
+        Suit suit = null;
         for(Suit s : Suit.values()){
             if(s.getSymbol().equals(card))
-                return s;
+                suit = s;
         }
-        return null;
+        return suit;
     }
 
     public Face getFace(String card) {
+        Face face = null;
         for(Face f : Face.values()) {
-            if(f.getValue() == Integer.parseInt(card)) return  f;
+            if(f.getDescription().equals(card))
+                face = f;
         }
-        return null;
+        return face;
     }
 
 }

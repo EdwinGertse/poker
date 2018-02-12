@@ -1,6 +1,6 @@
 package za.co.inclusivity.game.poker.model;
 
-public class Card {
+public class Card implements Comparable<Card> {
     private final Suit suit;
     private final Face face;
 
@@ -15,5 +15,10 @@ public class Card {
 
     public Face getFace() {
         return face;
+    }
+
+    @Override
+    public int compareTo(Card c) {
+        return face.getValue() - c.getFace().getValue();
     }
 }
